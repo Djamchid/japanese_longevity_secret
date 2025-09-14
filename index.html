@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>6 Mouvements Japonais pour la Longévité</title>
+  <meta name="description" content="Découvrez 6 mouvements japonais simples pour mobilité, équilibre et longévité. Vignettes cliquables et pages dédiées pour chaque mouvement." />
+  <!-- Open Graph (LinkedIn) -->
+  <meta property="og:title" content="6 Mouvements Japonais pour la Longévité" />
+  <meta property="og:description" content="Un mini-site élégant : 6 vignettes cliquables, pages détaillées, prêt à partager sur LinkedIn." />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="" />
+  <meta property="og:url" content="" />
+  <style>
+    :root{
+      --bg: #fff;
+      --fg: #111;
+      --muted:#777;
+      --accent:#000;
+      --card:#f7f7f7;
+      --shadow: 0 10px 30px rgba(0,0,0,.08);
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0; font-family: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+      color:var(--fg); background:var(--bg);
+      -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility;
+    }
+    a{color:inherit; text-decoration:none}
+    .wrap{max-width:1100px; margin:0 auto; padding:24px}
+    header{
+      display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap;
+      padding-block:8px 18px;
+      border-bottom:1px solid #eaeaea;
+    }
+    .brand{font-weight:800; letter-spacing:.2px; font-size:clamp(20px,2.4vw,28px)}
+    .tag{color:var(--muted); font-size:14px}
+
+    /* GRID OF CARDS */
+    .grid{display:grid; gap:16px; grid-template-columns: repeat(12, 1fr); margin-top:18px}
+    .card{grid-column: span 4; background:var(--card); border:1px solid #e9e9e9; border-radius:18px; padding:18px; box-shadow:var(--shadow);
+      display:flex; flex-direction:column; justify-content:space-between; min-height:220px; transition: transform .15s ease, box-shadow .15s ease, background .15s ease}
+    .card:hover{transform:translateY(-2px); box-shadow:0 14px 40px rgba(0,0,0,.12); background:#fff}
+    .card:focus-within{outline:2px solid #000}
+
+    .ico{width:80px; height:80px; display:block; margin:6px 0 10px}
+    .title{font-weight:700; font-size:18px; margin-bottom:4px}
+    .subtitle{font-size:13px; color:var(--muted); margin-bottom:8px}
+    .desc{font-size:14px; line-height:1.45; color:#333}
+    .cta{margin-top:14px; font-weight:700}
+    .cta span{border-bottom:1px solid currentColor}
+
+    @media (max-width: 900px){ .card{grid-column: span 6} }
+    @media (max-width: 620px){ .card{grid-column: span 12} }
+
+    /* PAGES (CSS-only routing using :target) */
+    .page{display:none; min-height:100%;}
+    .page:target{display:block}
+    #home:target ~ #home-page{display:block}
+    #home-page{display:block}
+
+    .hero{padding:28px 0 8px}
+    .hero h1{margin:0 0 8px 0; font-size:clamp(26px, 4vw, 42px)}
+    .hero p{margin:0; color:var(--muted)}
+
+    .detail{
+      min-height:100%; background:var(--bg);
+    }
+    .detail .header{
+      position:sticky; top:0; background:rgba(255,255,255,.85); backdrop-filter:saturate(150%) blur(6px);
+      border-bottom:1px solid #eee; z-index:10
+    }
+    .back{display:inline-flex; align-items:center; gap:8px; padding:10px 14px; border-radius:999px; border:1px solid #e5e5e5; background:#fafafa; font-weight:600}
+    .content{display:grid; grid-template-columns:1fr 1.2fr; gap:36px; padding:24px 0}
+    .content h2{margin:0 0 8px 0; font-size:clamp(24px,3.2vw,34px)}
+    .jp{color:var(--muted); font-weight:500}
+    .lead{font-size:18px; line-height:1.5}
+    .tips{border:1px dashed #ccc; border-radius:14px; padding:14px; background:#fcfcfc}
+    .bigico{width:160px; height:160px}
+
+    @media (max-width: 900px){ .content{grid-template-columns:1fr} .bigico{width:120px; height:120px} }
+
+    footer{border-top:1px solid #eee; padding:22px 0; color:var(--muted); font-size:14px}
+  </style>
+</head>
+<body>
+  <!-- Invisible anchors for CSS-only routing -->
+  <a id="home"></a>
+
+  <!-- HOME PAGE -->
+  <section id="home-page" class="page">
+    <div class="wrap">
+      <header>
+        <div class="brand">6 Mouvements Japonais</div>
+        <div class="tag">Mobilité • Équilibre • Longévité</div>
+      </header>
+
+      <div class="hero">
+        <h1>Bougez mieux, vivez plus longtemps</h1>
+        <p>6 vignettes → 6 fiches pratiques. Zéro équipement, 100% utilisable.</p>
+      </div>
+
+      <div class="grid" role="list">
+        <!-- 1 Tanui Hibiki -->
+        <article class="card" role="listitem">
+          <div>
+            <svg class="ico" viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="12" r="6" fill="none" stroke="black" stroke-width="2"/><rect x="14" y="26" width="36" height="8" rx="4" fill="none" stroke="black" stroke-width="2"/><path d="M18 38 v16 M46 38 v16 M26 22 h12" fill="none" stroke="black" stroke-width="2"/></svg>
+            <div class="title">Tanui Hibiki</div>
+            <div class="subtitle">Towel Twist (タヌイ響き)</div>
+            <p class="desc">Serviette tendue à hauteur d’épaules, tirer vers l’extérieur et tourner le buste.</p>
+          </div>
+          <a class="cta" href="#tanui"><span>Voir la fiche</span> →</a>
+        </article>
+
+        <!-- 2 Sea -->
+        <article class="card" role="listitem">
+          <div>
+            <svg class="ico" viewBox="0 0 64 64" aria-hidden="true"><path d="M20 44 l-6 12 M44 44 l6 12" fill="none" stroke="black" stroke-width="2"/><circle cx="22" cy="14" r="5" fill="none" stroke="black" stroke-width="2"/><circle cx="42" cy="14" r="5" fill="none" stroke="black" stroke-width="2"/><path d="M18 24 l6 10 l-8 8 M46 24 l-6 10 l8 8" fill="none" stroke="black" stroke-width="2"/></svg>
+            <div class="title">Sea</div>
+            <div class="subtitle">Transitions au sol (セア)</div>
+            <p class="desc">Passer de debout à assis par terre puis se relever, en fluidité.</p>
+          </div>
+          <a class="cta" href="#sea"><span>Voir la fiche</span> →</a>
+        </article>
+
+        <!-- 3 Ashi -->
+        <article class="card" role="listitem">
+          <div>
+            <svg class="ico" viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="10" r="5" fill="none" stroke="black" stroke-width="2"/><path d="M32 16 v16 M32 32 l10 12 M32 30 l-8 16" fill="none" stroke="black" stroke-width="2"/></svg>
+            <div class="title">Ashi</div>
+            <div class="subtitle">Équilibre sur une jambe (足)</div>
+            <p class="desc">Tenir 1 min par jambe, sans appui, regard loin.</p>
+          </div>
+          <a class="cta" href="#ashi"><span>Voir la fiche</span> →</a>
+        </article>
+
+        <!-- 4 Shink Zooari -->
+        <article class="card" role="listitem">
+          <div>
+            <svg class="ico" viewBox="0 0 64 64" aria-hidden="true"><circle cx="28" cy="12" r="5" fill="none" stroke="black" stroke-width="2"/><path d="M18 40 q10 -12 20 0 M22 40 h20" fill="none" stroke="black" stroke-width="2"/></svg>
+            <div class="title">Shink Zooari</div>
+            <div class="subtitle">Squat de repos profond (深座り)</div>
+            <p class="desc">Squat complet talons au sol, dos long, respiration calme.</p>
+          </div>
+          <a class="cta" href="#shink"><span>Voir la fiche</span> →</a>
+        </article>
+
+        <!-- 5 Raotaso / Radio Taiso -->
+        <article class="card" role="listitem">
+          <div>
+            <svg class="ico" viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="12" r="5" fill="none" stroke="black" stroke-width="2"/><path d="M12 36 h40 M22 28 q10 -14 20 0" fill="none" stroke="black" stroke-width="2"/></svg>
+            <div class="title">Raotaso</div>
+            <div class="subtitle">Étirements quotidiens (ラオタソ)</div>
+            <p class="desc">Enchaînement de 13 gestes : bras, rotations, inclinaisons, flexions.</p>
+          </div>
+          <a class="cta" href="#raotaso"><span>Voir la fiche</span> →</a>
+        </article>
+
+        <!-- 6 Sampo -->
+        <article class="card" role="listitem">
+          <div>
+            <svg class="ico" viewBox="0 0 64 64" aria-hidden="true"><circle cx="28" cy="12" r="5" fill="none" stroke="black" stroke-width="2"/><path d="M26 18 v16 M26 34 l10 10 M26 32 l-10 12" fill="none" stroke="black" stroke-width="2"/></svg>
+            <div class="title">Sampo</div>
+            <div class="subtitle">Marche lente (散歩)</div>
+            <p class="desc">Talon → plante → orteils, bras balancés, respiration calée.</p>
+          </div>
+          <a class="cta" href="#sampo"><span>Voir la fiche</span> →</a>
+        </article>
+      </div>
+
+      <footer>
+        <div class="wrap" style="padding:0">
+          <p>Astuce LinkedIn : partagez le lien direct vers une fiche (ex. #ashi) pour un call-to-action clair.</p>
+        </div>
+      </footer>
+    </div>
+  </section>
+
+  <!-- DETAIL PAGES -->
+  <section id="tanui" class="page detail">
+    <div class="wrap header">
+      <a class="back" href="#home">← Retour</a>
+    </div>
+    <div class="wrap content">
+      <div>
+        <h2>Tanui Hibiki <span class="jp">(タヌイ響き) — Towel Twist</span></h2>
+        <p class="lead">Tenez une serviette roulée à hauteur d’épaules, tirez vers l’extérieur (tension) puis tournez lentement le buste à droite/gauche, hanches fixes.</p>
+        <div class="tips">
+          <strong>Repères :</strong> 2 à 3 séries de 6 rotations lentes. Expiration pendant la rotation. Épaules basses.
+        </div>
+      </div>
+      <div>
+        <svg class="bigico" viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="12" r="6" fill="none" stroke="black" stroke-width="2"/><rect x="14" y="26" width="36" height="8" rx="4" fill="none" stroke="black" stroke-width="2"/><path d="M18 38 v16 M46 38 v16 M26 22 h12" fill="none" stroke="black" stroke-width="2"/></svg>
+      </div>
+    </div>
+  </section>
+
+  <section id="sea" class="page detail">
+    <div class="wrap header">
+      <a class="back" href="#home">← Retour</a>
+    </div>
+    <div class="wrap content">
+      <div>
+        <h2>Sea <span class="jp">(セア) — Transitions au sol</span></h2>
+        <p class="lead">Depuis debout, descendez pour vous asseoir au sol puis relevez‑vous. Utilisez différentes trajectoires (fente, appui mains, demi‑genoux) pour varier.</p>
+        <div class="tips"><strong>Repères :</strong> 5 à 10 transitions contrôlées. Gardez le dos long, appuis stables, respiration fluide.</div>
+      </div>
+      <div>
+        <svg class="bigico" viewBox="0 0 64 64" aria-hidden="true"><path d="M20 44 l-6 12 M44 44 l6 12" fill="none" stroke="black" stroke-width="2"/><circle cx="22" cy="14" r="6" fill="none" stroke="black" stroke-width="2"/><circle cx="42" cy="14" r="6" fill="none" stroke="black" stroke-width="2"/><path d="M18 24 l6 10 l-8 8 M46 24 l-6 10 l8 8" fill="none" stroke="black" stroke-width="2"/></svg>
+      </div>
+    </div>
+  </section>
+
+  <section id="ashi" class="page detail">
+    <div class="wrap header">
+      <a class="back" href="#home">← Retour</a>
+    </div>
+    <div class="wrap content">
+      <div>
+        <h2>Ashi <span class="jp">(足) — Équilibre sur une jambe</span></h2>
+        <p class="lead">Levez un pied, fixez un point à l’horizon et stabilisez. Alternez droite/gauche.</p>
+        <div class="tips"><strong>Repères :</strong> 60 s par jambe. Option : yeux fermés ou mouvements de bras pour progresser. Proche d’un support si besoin.</div>
+      </div>
+      <div>
+        <svg class="bigico" viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="10" r="6" fill="none" stroke="black" stroke-width="2"/><path d="M32 16 v16 M32 32 l10 12 M32 30 l-8 16" fill="none" stroke="black" stroke-width="2"/></svg>
+      </div>
+    </div>
+  </section>
+
+  <section id="shink" class="page detail">
+    <div class="wrap header">
+      <a class="back" href="#home">← Retour</a>
+    </div>
+    <div class="wrap content">
+      <div>
+        <h2>Shink Zooari <span class="jp">(深座り) — Squat de repos profond</span></h2>
+        <p class="lead">Descendez en squat complet, talons au sol si possible. Laissez les hanches s’asseoir entre les chevilles, dos long.</p>
+        <div class="tips"><strong>Repères :</strong> 1–3 min de maintien. Option : s’adosser à un mur, cales sous talons, tenir un support.</div>
+      </div>
+      <div>
+        <svg class="bigico" viewBox="0 0 64 64" aria-hidden="true"><circle cx="28" cy="12" r="6" fill="none" stroke="black" stroke-width="2"/><path d="M18 40 q10 -12 20 0 M22 40 h20" fill="none" stroke="black" stroke-width="2"/></svg>
+      </div>
+    </div>
+  </section>
+
+  <section id="raotaso" class="page detail">
+    <div class="wrap header">
+      <a class="back" href="#home">← Retour</a>
+    </div>
+    <div class="wrap content">
+      <div>
+        <h2>Raotaso <span class="jp">(ラオタソ) — Étirements quotidiens</span></h2>
+        <p class="lead">Mini‑routine de 3 à 4 minutes : lever de bras, rotations, torsions, inclinaisons latérales, marche sur place, flexions légères.</p>
+        <div class="tips"><strong>Repères :</strong> Rythme régulier, respiration ample. Viser la fluidité plutôt que l’amplitude maximale.</div>
+      </div>
+      <div>
+        <svg class="bigico" viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="12" r="6" fill="none" stroke="black" stroke-width="2"/><path d="M12 36 h40 M22 28 q10 -14 20 0" fill="none" stroke="black" stroke-width="2"/></svg>
+      </div>
+    </div>
+  </section>
+
+  <section id="sampo" class="page detail">
+    <div class="wrap header">
+      <a class="back" href="#home">← Retour</a>
+    </div>
+    <div class="wrap content">
+      <div>
+        <h2>Sampo <span class="jp">(散歩) — Marche lente</span></h2>
+        <p class="lead">Marchez à demi‑vitesse, déroulé du pied talon→plante→orteils. Caler la respiration : inspirer 2 pas, tenir 2, expirer 4.</p>
+        <div class="tips"><strong>Repères :</strong> 10–20 min, regard à 2 m devant vous, épaules détendues, bras qui balancent naturellement.</div>
+      </div>
+      <div>
+        <svg class="bigico" viewBox="0 0 64 64" aria-hidden="true"><circle cx="28" cy="12" r="6" fill="none" stroke="black" stroke-width="2"/><path d="M26 18 v16 M26 34 l10 10 M26 32 l-10 12" fill="none" stroke="black" stroke-width="2"/></svg>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    // Optional: if no hash provided, ensure we land on #home for consistent behavior and shareability.
+    if(!location.hash){ location.hash = '#home'; }
+  </script>
+</body>
+</html>
