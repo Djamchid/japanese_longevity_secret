@@ -82,6 +82,18 @@
     @media (max-width: 900px){ .content{grid-template-columns:1fr} .bigico{width:120px; height:120px} }
 
     footer{border-top:1px solid #eee; padding:22px 0; color:var(--muted); font-size:14px}
+
+    /* Coach Audio */
+    .coach{margin-top:16px; background:#f4f4f4; border:1px solid #e6e6e6; border-radius:18px; padding:18px; box-shadow:var(--shadow)}
+    .coach h3{margin:0 0 8px 0; font-size:20px}
+    .coach .row{display:flex; gap:12px; flex-wrap:wrap; align-items:center}
+    .coach select, .coach button{border:1px solid #ddd; border-radius:12px; padding:10px 12px; background:white; font-weight:600}
+    .coach button{cursor:pointer}
+    .coach .status{margin-top:10px; color:#333}
+    .progress{height:10px; background:#e9e9e9; border-radius:999px; overflow:hidden; margin-top:10px}
+    .bar{height:100%; width:0%; background:#111; transition:width .2s}
+    .chip{display:inline-block; padding:4px 10px; border-radius:999px; background:#fff; border:1px solid #ddd; font-size:12px; color:#444}
+    .muted{color:var(--muted)}
   </style>
 </head>
 <body>
@@ -100,6 +112,38 @@
         <h1>Bougez mieux, vivez plus longtemps</h1>
         <p>6 vignettes → 6 fiches pratiques. Zéro équipement, 100% utilisable.</p>
       </div>
+
+      <!-- COACH AUDIO -->
+      <section class="coach" aria-labelledby="coach-title">
+        <h3 id="coach-title">Coach audio – Séance guidée</h3>
+        <div class="row" style="gap:8px">
+          <label>Durée séance
+            <select id="sessionLength">
+              <option value="600">10 min</option>
+              <option value="900">15 min</option>
+              <option value="1200">20 min</option>
+              <option value="1800" selected>30 min</option>
+            </select>
+          </label>
+          <label>Temps par exercice
+            <select id="workSeconds">
+              <option value="20">20 s</option>
+              <option value="30" selected>30 s</option>
+              <option value="40">40 s</option>
+              <option value="60">60 s</option>
+            </select>
+          </label>
+          <button id="startBtn">▶️ Démarrer</button>
+          <button id="pauseBtn" disabled>⏸️ Pause</button>
+          <button id="resetBtn" disabled>⏹️ Réinitialiser</button>
+          <span class="chip" id="seriesInfo"></span>
+        </div>
+        <div class="status" id="statusLine">Prêt.</div>
+        <div class="muted" id="hintLine">Le coach lit les consignes, annonce « repos », et fait des bips.</div>
+        <div class="progress" aria-label="Progression">
+          <div class="bar" id="progressBar"></div>
+        </div>
+      </section>
 
       <div class="grid" role="list">
         <!-- 1 Tanui Hibiki -->
@@ -203,7 +247,7 @@
     <div class="wrap content">
       <div>
         <h2>Sea <span class="jp">(セア) — Transitions au sol</span></h2>
-        <p class="lead">Depuis debout, descendez pour vous asseoir au sol puis relevez‑vous. Utilisez différentes trajectoires (fente, appui mains, demi‑genoux) pour varier.</p>
+        <p class="lead">Depuis debout, descendez pour vous asseoir au sol puis relevez-vous. Utilisez différentes trajectoires (fente, appui mains, demi-genoux) pour varier.</p>
         <div class="tips"><strong>Repères :</strong> 5 à 10 transitions contrôlées. Gardez le dos long, appuis stables, respiration fluide.</div>
       </div>
       <div>
@@ -251,7 +295,7 @@
     <div class="wrap content">
       <div>
         <h2>Raotaso <span class="jp">(ラオタソ) — Étirements quotidiens</span></h2>
-        <p class="lead">Mini‑routine de 3 à 4 minutes : lever de bras, rotations, torsions, inclinaisons latérales, marche sur place, flexions légères.</p>
+        <p class="lead">Mini-routine de 3 à 4 minutes : lever de bras, rotations, torsions, inclinaisons latérales, marche sur place, flexions légères.</p>
         <div class="tips"><strong>Repères :</strong> Rythme régulier, respiration ample. Viser la fluidité plutôt que l’amplitude maximale.</div>
       </div>
       <div>
@@ -267,7 +311,7 @@
     <div class="wrap content">
       <div>
         <h2>Sampo <span class="jp">(散歩) — Marche lente</span></h2>
-        <p class="lead">Marchez à demi‑vitesse, déroulé du pied talon→plante→orteils. Caler la respiration : inspirer 2 pas, tenir 2, expirer 4.</p>
+        <p class="lead">Marchez à demi-vitesse, déroulé du pied talon→plante→orteils. Caler la respiration : inspirer 2 pas, tenir 2, expirer 4.</p>
         <div class="tips"><strong>Repères :</strong> 10–20 min, regard à 2 m devant vous, épaules détendues, bras qui balancent naturellement.</div>
       </div>
       <div>
@@ -277,8 +321,204 @@
   </section>
 
   <script>
-    // Optional: if no hash provided, ensure we land on #home for consistent behavior and shareability.
     if(!location.hash){ location.hash = '#home'; }
+
+    // ---------- Coach Audio Logic ----------
+    const exercises = [
+      {
+        key: 'tanui',
+        name: 'Tanui Hibiki',
+        jp: '(タヌイ響き)',
+        cue: "Exercice 1 : Tanui Hibiki. Tenez la serviette à hauteur des épaules, tirez vers l’extérieur, puis tournez lentement le buste à droite et à gauche.",
+        rest: "Repos. Relâchez la serviette, respirez."
+      },
+      {
+        key: 'sea',
+        name: 'Sea',
+        jp: '(セア)',
+        cue: "Exercice 2 : Sea. Depuis debout, asseyez-vous au sol puis relevez-vous en douceur. Répétez.",
+        rest: "Repos. Relâchez les jambes, soufflez."
+      },
+      {
+        key: 'ashi',
+        name: 'Ashi',
+        jp: '(足)',
+        cue: "Exercice 3 : Ashi. Levez un pied, fixez un point loin devant, gardez l’équilibre. Changez de jambe à mi-temps si possible.",
+        rest: "Repos. Secouez doucement les jambes, respirez."
+      },
+      {
+        key: 'shink',
+        name: 'Shink Zooari',
+        jp: '(深座り)',
+        cue: "Exercice 4 : Shink Zooari. Descendez en squat complet, talons au sol si possible, dos long, respiration calme.",
+        rest: "Repos. Détendez les chevilles, inspirez profondément."
+      },
+      {
+        key: 'raotaso',
+        name: 'Raotaso',
+        jp: '(ラオタソ)',
+        cue: "Exercice 5 : Raotaso. Mini-routine : lever de bras, inclinaisons droite/gauche, rotations, flexions légères.",
+        rest: "Repos. Relâchez les bras, soufflez."
+      },
+      {
+        key: 'sampo',
+        name: 'Sampo',
+        jp: '(散歩)',
+        cue: "Exercice 6 : Sampo. Marchez lentement. Déroulé : talon, plante, orteils. Respirez : inspirez 2 pas, tenez 2, expirez 4.",
+        rest: "Repos. Épaules détendues, respiration calme."
+      }
+    ];
+
+    const $ = sel => document.querySelector(sel);
+    const sessionLengthEl = $('#sessionLength');
+    const workSecondsEl = $('#workSeconds');
+    const startBtn = $('#startBtn');
+    const pauseBtn = $('#pauseBtn');
+    const resetBtn = $('#resetBtn');
+    const statusLine = $('#statusLine');
+    const hintLine = $('#hintLine');
+    const bar = $('#progressBar');
+    const seriesInfo = $('#seriesInfo');
+
+    // Web Audio beep
+    let audioCtx;
+    function beep(times=1, freq=880, dur=0.12){
+      try{
+        if(!audioCtx) audioCtx = new (window.AudioContext||window.webkitAudioContext)();
+        for(let i=0;i<times;i++){
+          const t0 = audioCtx.currentTime + i*(dur+0.05);
+          const o = audioCtx.createOscillator();
+          const g = audioCtx.createGain();
+          o.type='sine'; o.frequency.value = freq;
+          o.connect(g); g.connect(audioCtx.destination);
+          g.gain.setValueAtTime(0.001, t0);
+          g.gain.exponentialRampToValueAtTime(0.2, t0+0.01);
+          g.gain.exponentialRampToValueAtTime(0.001, t0+dur);
+          o.start(t0); o.stop(t0+dur);
+        }
+      }catch(e){/* ignore */}
+    }
+
+    // Speech synthesis (FR)
+    function say(text){
+      if(!('speechSynthesis' in window)) return;
+      const u = new SpeechSynthesisUtterance(text);
+      u.lang = 'fr-FR';
+      u.rate = 1.0; u.pitch = 1.0; u.volume = 1.0;
+      window.speechSynthesis.cancel();
+      window.speechSynthesis.speak(u);
+    }
+
+    let timer=null, running=false, paused=false;
+    let plan=[], stepIndex=0, stepRemaining=0, totalElapsed=0, totalPlanned=0;
+
+    function buildPlan(){
+      const total = parseInt(sessionLengthEl.value,10); // seconds
+      const work = parseInt(workSecondsEl.value,10);    // seconds per exercise
+      const rest = Math.round(work*0.25);               // rest seconds
+      const seriesDur = (work+rest)*exercises.length;   // seconds per series
+      const seriesCount = Math.max(1, Math.floor(total / seriesDur));
+      plan = [];
+      for(let s=0;s<seriesCount;s++){
+        for(const ex of exercises){
+          plan.push({type:'work', ex, dur:work});
+          plan.push({type:'rest', ex, dur:rest});
+        }
+        // Fin de série
+        plan.push({type:'series_end', ex:null, dur:2}); // petite pause signal
+      }
+      totalPlanned = plan.reduce((a,b)=>a+b.dur,0);
+      seriesInfo.textContent = seriesCount + ' série' + (seriesCount>1?'s':'');
+      return {total, work, rest, seriesCount, seriesDur};
+    }
+
+    function updateStatus(){
+      const step = plan[stepIndex];
+      if(!step){
+        statusLine.textContent = 'Séance terminée.';
+        return;
+      }
+      if(step.type==='work'){
+        statusLine.textContent = `Exercice : ${step.ex.name} ${step.ex.jp} · ${stepRemaining}s`;
+      } else if(step.type==='rest'){
+        statusLine.textContent = `Repos · ${stepRemaining}s`;
+      } else {
+        statusLine.textContent = 'Transition série…';
+      }
+      const pct = Math.min(100, (totalElapsed/totalPlanned)*100);
+      bar.style.width = pct.toFixed(1)+'%';
+    }
+
+    function startPlan(){
+      if(running){return}
+      const meta = buildPlan();
+      running=true; paused=false; stepIndex=0; totalElapsed=0; stepRemaining=plan[0]?.dur||0;
+      startBtn.disabled=true; pauseBtn.disabled=false; resetBtn.disabled=false;
+      hintLine.textContent = `Travail ${meta.work}s · Repos ${meta.rest}s · ${seriesInfo.textContent}`;
+      say('Bienvenue dans votre séance des six mouvements japonais. Nous allons commencer.');
+      nextStep(true);
+      timer = setInterval(tick, 1000);
+    }
+
+    function nextStep(first=false){
+      const step = plan[stepIndex];
+      if(!step){ endSession(); return; }
+      stepRemaining = step.dur;
+      if(step.type==='work'){
+        if(!first) beep(1,880,0.12);
+        say(step.ex.cue);
+      } else if(step.type==='rest'){
+        beep(2,520,0.1);
+        say('Repos');
+        say(step.ex.rest);
+      } else if(step.type==='series_end'){
+        beep(3,740,0.08);
+        say('Bravo, vous avez complété une série.');
+      }
+      updateStatus();
+    }
+
+    function tick(){
+      if(!running || paused) return;
+      stepRemaining -= 1; totalElapsed += 1; updateStatus();
+      if(stepRemaining<=0){
+        stepIndex += 1;
+        if(stepIndex>=plan.length){ endSession(); return; }
+        nextStep();
+      }
+    }
+
+    function endSession(){
+      clearInterval(timer); running=false; paused=false;
+      startBtn.disabled=false; pauseBtn.disabled=true; resetBtn.disabled=false;
+      beep(2,880,0.15); beep(1,660,0.18);
+      say('Félicitations, séance terminée. Continuez chaque jour.');
+      statusLine.textContent = 'Bravo ! Séance terminée.';
+      bar.style.width='100%';
+    }
+
+    function pausePlan(){
+      if(!running) return;
+      paused = !paused;
+      if(paused){
+        pauseBtn.textContent='▶️ Reprendre';
+        say('Pause');
+      } else {
+        pauseBtn.textContent='⏸️ Pause';
+        say('Reprise');
+      }
+    }
+
+    function resetPlan(){
+      clearInterval(timer); running=false; paused=false;
+      startBtn.disabled=false; pauseBtn.disabled=true; resetBtn.disabled=true;
+      statusLine.textContent='Prêt.'; hintLine.textContent='Le coach lit les consignes, annonce « repos », et fait des bips.';
+      bar.style.width='0%';
+    }
+
+    startBtn.addEventListener('click', startPlan);
+    pauseBtn.addEventListener('click', pausePlan);
+    resetBtn.addEventListener('click', resetPlan);
   </script>
 </body>
 </html>
